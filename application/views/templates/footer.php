@@ -98,6 +98,7 @@
 
 
 <!-- Examples -->
+<script src="<?=base_url()?>assets/javascripts/ui-elements/examples.modals.js"></script>
 <script src="<?=base_url()?>assets/javascripts/tables/examples.datatables.default.js"></script>
 <script src="<?=base_url()?>assets/javascripts/tables/examples.datatables.row.with.details.js"></script>
 <script src="<?=base_url()?>assets/javascripts/tables/examples.datatables.tabletools.js"></script>

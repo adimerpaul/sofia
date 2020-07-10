@@ -317,6 +317,7 @@
                                     <th>Producto</th>
                                     <th>Precio</th>
                                     <th>Cantidad</th>
+                                    <th>Extra</th>
                                     <th>Subtotal</th>
                                     <th>Cancelar</th>
                                 </tr>
@@ -325,6 +326,7 @@
                                 </tbody>
                                 <tfooter>
                                     <tr class="bg bg-warning">
+                                        <th></th>
                                         <th></th>
                                         <th></th>
                                         <th>Total</th>
@@ -448,7 +450,7 @@
         $('.select').click(function (e) {
             // console.log($(this).attr('data-id'));
             idcliente=$(this).attr('data-id');
-            console.log(idcliente);
+            // console.log(idcliente);
         });
 
         $('#formulario').submit(function (e) {
@@ -462,15 +464,18 @@
                 var cantidad= parseInt( $('#cantidad').val());
                 var subtotal=cantidad*parseFloat(precio);
                 var nombre=$('#nombre').val();
+                var extra=$('#extra').val();
                 // console.log(cantidad);
                 $('#contenido').append("<tr>\n" +
                 "                                    <td>"+nombre+" <input hidden name='id"+idproducto+"' value='"+idproducto+"'></td>\n" +
                 "                                    <td>"+parseFloat(precio).toFixed(2)+"<input hidden name='precio"+idproducto+"' value='"+parseFloat(precio).toFixed(2)+"'></td>\n" +
                 "                                    <td>"+cantidad+"  <input hidden name='cantidad"+idproducto+"' value='"+cantidad+"'></td>\n" +
+                "                                    <td>"+extra+"  <input hidden name='extra"+idproducto+"' value='"+extra+"'></td>\n" +
                 "                                    <td><span>"+parseFloat(subtotal).toFixed(2)+" Bs.</span><input class='subtotal' name='s"+idproducto+"' value='"+parseFloat(subtotal).toFixed(2)+"' hidden > </td>" +
                                                     "<td><button class='btn btn-danger p-1 eliproducto'><i class='fa fa-trash-o'></i></button></td>\n" +
                 "                                </tr>");
                 calcular_total();
+                $('#extra').val('')
             }
             return false;
         });
@@ -499,7 +504,7 @@
             }else{
                 //console.log($("#agregarpedido").serialize());
                 formData.push({name:"idcliente",value:idcliente})
-                console.log(formData);
+                // console.log(formData);
                 $.ajax({
                     type: 'POST',
                     url:'Admin/pedido',
@@ -509,6 +514,7 @@
                         $('#contenido').html('');
                         $('#modalBootstrap').modal('hide');
                         $('#total').html('0')
+                        $('#extra').val('')
                         // console.log(e);
                     }
                 })

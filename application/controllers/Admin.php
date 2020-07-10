@@ -32,6 +32,7 @@ class Admin extends CI_Controller {
  `idCli`='".$_POST['idcliente']."',
  `Cant`='".$_POST['cantidad'.$row->CodAut]."',
  `precio`='".$_POST['precio'.$row->CodAut]."',
+ `Canttxt`='".$_POST['extra'.$row->CodAut]."',
  `fecha`='".date("Y-m-d H:i:s")."';");
             }
         }
