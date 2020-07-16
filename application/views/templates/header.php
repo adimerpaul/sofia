@@ -294,13 +294,13 @@
                                     <span>Cuentas por Pedientes</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="<?=base_url()?>Cuentas">
-                                    <!--                                    <span class="pull-right label label-primary">182</span>-->
-                                    <i class="fa fa-money" aria-hidden="true"></i>
-                                    <span>Cuentas por Cobrar</span>
-                                </a>
-                            </li>
+<!--                            <li>-->
+<!--                                <a href="--><?//=base_url()?><!--Cuentas">-->
+<!--                                                                        <span class="pull-right label label-primary">182</span>-->
+<!--                                    <i class="fa fa-money" aria-hidden="true"></i>-->
+<!--                                    <span>Cuentas por Cobrar</span>-->
+<!--                                </a>-->
+<!--                            </li>-->
                             <!--                            <li class="nav-parent">-->
                             <!--                                <a>-->
                             <!--                                    <i class="fa fa-copy" aria-hidden="true"></i>-->

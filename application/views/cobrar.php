@@ -57,13 +57,25 @@
                     <div class="modal-body">
                         <form class="form-horizontal form-bordered" id="formulario" method="post">
                             <div class="form-group" style="padding: 0 1em">
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <label class="control-label">CINIT</label>
                                     <input type="text" name="ci" id="ci" class="form-control" required>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <label class="control-label">Nombre Completo</label>
-                                    <input type="text" name="nombre" id="nombre" class="form-control">
+                                    <input type="text" name="nombre" id="nombre" class="form-control" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label">TOTAL</label>
+                                    <input type="text" name="total" id="total" class="form-control"  disabled>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="control-label">A cuenta</label>
+                                    <input type="text" name="acuenta" id="acuenta" class="form-control" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label">A cuentas</label>
+                                    <button class="btn btn-success"><i class="fa fa-money"></i> A cuenta</button>
                                 </div>
 <!--                                <div class="col-md-5">-->
 <!--                                    <label class="control-label">Nombre generico</label>-->
@@ -77,19 +89,21 @@
                         </form>
                         <form id="agregarpedido">
                             <div class="table-responsive" style="padding-top: 0.5em">
-                                <table class="table table-bordered mb-none">
-                                    <thead>
-                                    <tr class="bg bg-primary">
-                                        <th>Comanda</th>
-                                        <th>Deudaor</th>
-                                        <th>Importe</th>
-                                        <th>A cuenta</th>
-                                        <th>Deuda</th>
-                                        <th>Productos</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="contenido">
-                                    </tbody>
+                                <div class="panel-group" id="accordionSuccess">
+                                </div>
+<!--                                <table class="table table-bordered mb-none">-->
+<!--                                    <thead>-->
+<!--                                    <tr class="bg bg-primary">-->
+<!--                                        <th>Comanda</th>-->
+<!--                                        <th>Deudaor</th>-->
+<!--                                        <th>Importe</th>-->
+<!--                                        <th>A cuenta</th>-->
+<!--                                        <th>Deuda</th>-->
+<!--                                        <th>Productos</th>-->
+<!--                                    </tr>-->
+<!--                                    </thead>-->
+<!--                                    <tbody id="contenido">-->
+<!--                                    </tbody>-->
 <!--                                    <tfooter>-->
 <!--                                        <tr class="bg bg-warning">-->
 <!--                                            <th></th>-->
@@ -99,11 +113,11 @@
 <!--                                            <th></th>-->
 <!--                                        </tr>-->
 <!--                                    </tfooter>-->
-                                </table>
+<!--                                </table>-->
                             </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary "> <i class="fa fa-plus-circle"></i> Confirmar pedido</button>
+<!--                        <button type="submit" class="btn btn-primary "> <i class="fa fa-plus-circle"></i> Confirmar pedido</button>-->
                         <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fa fa-trash-o"></i> Close</button>
                     </div>
                     </form>
@@ -111,37 +125,88 @@
             </div>
         </div>
         <script>
-            function  seleccionar(id){
-                idcliente=id;
+            var idcliente;
+            var total=0;
+            function datosfun() {
+                $('#accordionSuccess').html('');
                 $('#contenido').html('');
                 // console.log(idcliente);
                 $.ajax({
-                        url:'Cobrar/deudas/'+idcliente,
-                        success:function (e) {
-                            // console.log(e);
-                            if (e=="[]"){
-                                $('#ci').val('SIN DEUDAS');
-                                $('#nombre').val('SIN DEUDAS');
-                            }else{
-                                datos=JSON.parse(e);
-                                // console.log(datos);
-                                $('#ci').val(datos[0].CINIT);
-                                $('#nombre').val(datos[0].Nombres);
-                                datos.forEach((res)=>{
-                                    // console.log(res);
-                                    $('#contenido').append("<tr>" +
-                                        "<td>"+res.Comanda+"</td>" +
-                                        "<td>"+res.Nombres+"</td>" +
-                                        "<td>"+res.Importe+"</td>" +
-                                        "<td>"+res.Acuenta+"</td>" +
-                                        "<td>"+(parseFloat(res.Importe)-parseFloat(res.Acuenta)).toFixed(2)+"</td>" +
-                                        "<td>"+res.Producto+"</td>" +
-                                        "</tr>");
-                                });
+                    url:'Cobrar/deudas/'+idcliente,
+                    success:function (e) {
+                        // console.log(e);
+                        if (e=="[]"){
+                            $('#ci').val('SIN DEUDAS');
+                            $('#nombre').val('SIN DEUDAS');
+                        }else{
+                            datos=JSON.parse(e);
+                            // console.log(datos);
+                            $('#ci').val(datos[0].CINIT);
+                            $('#nombre').val(datos[0].Nombres);
+                            let comanda="";
+                            let cont=0;
+                            total=0;
+                            datos.forEach((res)=>{
+                                // console.log(res);
+                                if(comanda!=res.Comanda){
+                                    // console.log(res.Comanda);
+                                    comanda=res.Comanda;
+                                    cont=cont+1;
+                                    total=total+ parseFloat( parseFloat(res.Importe-res.Acuenta).toFixed(2));
+                                    $('#accordionSuccess').append("" +
+                                        "<div class=\"panel panel-accordion panel-accordion-success\">\n" +
+                                        "      <div class=\"panel-heading\">\n" +
+                                        "                                            <h4 class=\"panel-title\">\n" +
+                                        "                                                <a class=\"accordion-toggle\" data-toggle=\"collapse\" data-parent=\"#accordionSuccess\" href=\"#collapse"+cont+"\">\n" +
+                                        "                                                    Comanda N°" +comanda+ "  <span class='badge ' >Importe "+parseFloat(res.Importe).toFixed(2)+" </span><span class='badge '> A cuenta "+parseFloat(res.Acuenta).toFixed(2)+" </span><div class='text-right'><span class='badge '> Saldo  "+parseFloat(res.Importe-res.Acuenta).toFixed(2)+"</span></div>"+
+                                        "                                                </a>\n" +
+                                        "                                            </h4>\n" +
+                                        "                                        </div>\n" +
+                                        "                                        <div id=\"collapse"+cont+"\" class=\"accordion-body collapse\">\n" +
+                                        "                                            <div class=\"panel-body\" >\n" +
+                                        "                                                <table>" +
+                                        "<thead>" +
+                                        "<tr><th>Productos</th></tr>" +
+                                        "</thead>" +
+                                        "<tbody id='co"+comanda+"'>" +
+                                        "</table>" +
+                                        "</tbody>" +
+                                        "                                            </div>\n" +
+                                        "      </div>\n" +
+                                        "</div>" +
+                                        "");
 
-                            }
+                                }else{
+                                    $('#co'+comanda).append("<tr>" +
+                                        "<td>"+res.Producto+"</td>" +
+                                        "</tr>" );
+                                }
+                                // $('#contenido').append("<tr>" +
+                                //     "<td>"+res.Comanda+"</td>" +
+                                //     "<td>"+res.Nombres+"</td>" +
+                                //     "<td>"+res.Importe+"</td>" +
+                                //     "<td>"+res.Acuenta+"</td>" +
+                                //     "<td>"+(parseFloat(res.Importe)-parseFloat(res.Acuenta)).toFixed(2)+"</td>" +
+                                //     "<td>"+res.Producto+"</td>" +
+                                //     "</tr>");$('#contenido').append("<tr>" +
+                                //     "<td>"+res.Comanda+"</td>" +
+                                //     "<td>"+res.Nombres+"</td>" +
+                                //     "<td>"+res.Importe+"</td>" +
+                                //     "<td>"+res.Acuenta+"</td>" +
+                                //     "<td>"+(parseFloat(res.Importe)-parseFloat(res.Acuenta)).toFixed(2)+"</td>" +
+                                //     "<td>"+res.Producto+"</td>" +
+                                //     "</tr>");
+                            });
+                            $('#total').val(total.toFixed(2))
                         }
-                    })
+                    }
+                })
+            }
+            function  seleccionar(id){
+                idcliente=id;
+                // console.log(idcliente);
+                datosfun();
+
             }
         </script>
         <table class="table table-bordered table-striped mb-none" id="datatable-default">
@@ -174,7 +239,7 @@
 </section>
 <script>
     window.onload=function (e) {
-        var idcliente;
+        // var idcliente;
         var idproducto;
         // $('#producto').change(function (e) {
         //     // console.log($(this).val());
@@ -267,29 +332,45 @@
 
 
 
-        // $('#formulario').submit(function (e) {
-        //
-        //     var precio=$('input[name=precio]:checked', '#formulario').val();
-        //     // console.log(precio);
-        //     if( parseInt(precio)==0){
-        //         alert('nose puede escoger un precio 0');
-        //         return false;
-        //     }else{
-        //         var cantidad= parseInt( $('#cantidad').val());
-        //         var subtotal=cantidad*parseFloat(precio);
-        //         var nombre=$('#nombre').val();
-        //         // console.log(cantidad);
-        //         $('#contenido').append("<tr>\n" +
-        //             "                                    <td>"+nombre+" <input hidden name='id"+idproducto+"' value='"+idproducto+"'></td>\n" +
-        //             "                                    <td>"+parseFloat(precio).toFixed(2)+"<input hidden name='precio"+idproducto+"' value='"+parseFloat(precio).toFixed(2)+"'></td>\n" +
-        //             "                                    <td>"+cantidad+"  <input hidden name='cantidad"+idproducto+"' value='"+cantidad+"'></td>\n" +
-        //             "                                    <td><span>"+parseFloat(subtotal).toFixed(2)+" Bs.</span><input class='subtotal' name='s"+idproducto+"' value='"+parseFloat(subtotal).toFixed(2)+"' hidden > </td>" +
-        //             "<td><button class='btn btn-danger p-1 eliproducto'><i class='fa fa-trash-o'></i></button></td>\n" +
-        //             "                                </tr>");
-        //         calcular_total();
-        //     }
-        //     return false;
-        // });
+        $('#formulario').submit(function (e) {
+            // console.log(parseFloat($('#total').val())<=parseFloat($('#acuenta').val()));
+            if ( parseFloat($('#total').val())>=parseFloat($('#acuenta').val()) && $('#acuenta').val()!=0){
+                $.ajax({
+                    url:'Cobrar/pagado/'+idcliente+'/'+$('#acuenta').val(),
+                    success:function (e) {
+                        // console.log(e);
+                        $('#acuenta').val('');
+                        alert('Insertado correctamente!!!');
+                        datosfun();
+                    }
+                })
+            }else{
+                alert('Lo siento el sistema aun no permite adelantos!!!!!')
+            }
+
+            // console.log(idcliente);
+            // console.log($('#acuenta').val());
+            // var precio=$('input[name=precio]:checked', '#formulario').val();
+            // // console.log(precio);
+            // if( parseInt(precio)==0){
+            //     alert('nose puede escoger un precio 0');
+            //     return false;
+            // }else{
+            //     var cantidad= parseInt( $('#cantidad').val());
+            //     var subtotal=cantidad*parseFloat(precio);
+            //     var nombre=$('#nombre').val();
+            //     // console.log(cantidad);
+            //     $('#contenido').append("<tr>\n" +
+            //         "                                    <td>"+nombre+" <input hidden name='id"+idproducto+"' value='"+idproducto+"'></td>\n" +
+            //         "                                    <td>"+parseFloat(precio).toFixed(2)+"<input hidden name='precio"+idproducto+"' value='"+parseFloat(precio).toFixed(2)+"'></td>\n" +
+            //         "                                    <td>"+cantidad+"  <input hidden name='cantidad"+idproducto+"' value='"+cantidad+"'></td>\n" +
+            //         "                                    <td><span>"+parseFloat(subtotal).toFixed(2)+" Bs.</span><input class='subtotal' name='s"+idproducto+"' value='"+parseFloat(subtotal).toFixed(2)+"' hidden > </td>" +
+            //         "<td><button class='btn btn-danger p-1 eliproducto'><i class='fa fa-trash-o'></i></button></td>\n" +
+            //         "                                </tr>");
+            //     // calcular_total();
+            // }
+            return false;
+        });
 
         // function calcular_total() {
         //     importe_total = 0;

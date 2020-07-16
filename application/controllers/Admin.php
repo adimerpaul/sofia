@@ -12,7 +12,9 @@ class Admin extends CI_Controller {
     }
     public function product(){
         $id= $_POST['id'];
-        $query=$this->db->query("SELECT * FROM tbproductos WHERE CodAut='$id'");
+        $query=$this->db->query("SELECT * 
+         FROM tbproductos t INNER JOIN tbstock s ON s.cod_prod=t.cod_prod
+         WHERE t.CodAut='$id'");
         echo json_encode($query->row());
     }
     public function pedido(){

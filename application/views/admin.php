@@ -130,48 +130,23 @@
                                 </div>
                             </div>
                             <div class="form-group" style="padding: 0 1em">
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
 <!--                                        <div class="form-group">-->
                                             <label class="control-label">Codigo</label>
                                             <input type="text" name="codigo" id="codigo" class="form-control" required>
 <!--                                        </div>-->
                                     </div>
                                     <div class="col-md-5">
-<!--                                        <div class="form-group">-->
                                             <label class="control-label">Nombre Comercial/Producto</label>
                                             <input type="text" name="nombre" id="nombre" class="form-control">
-<!--                                        </div>-->
-                                    </div>
-                                    <div class="col-md-5">
-<!--                                        <div class="form-group">-->
-                                            <label class="control-label">Nombre generico</label>
-                                            <input type="text" name="generico" id="generico" class="form-control">
-<!--                                        </div>-->
-                                    </div>
-                                    <div class="col-md-2">
-<!--                                        <div class="form-group">-->
-                                            <label class="control-label">Tipo de producto</label>
-                                            <input type="text" name="tipo" id="tipo" class="form-control">
-<!--                                        </div>-->
                                     </div>
                                 <div class="col-md-2">
-                                    <label class="control-label">Unidad medida</label>
-                                    <input type="text" name="unidad" id="unidad" class="form-control">
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="control-label">Unidad X caja</label>
-                                    <input type="text" name="unidadx" id="unidadx" class="form-control">
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="control-label">Peso fijo</label>
-                                    <input type="text" name="peso" id="peso" class="form-control">
+                                    <label class="control-label">Cantidad disponible</label>
+                                    <input type="text" name="disponible" id="disponible" class="form-control" disabled>
                                 </div>
                                 <div class="col-md-4">
-<!--                                    <div class="form-group">-->
                                         <label class="control-label">Extra</label>
-                                        <!--                                        <input type="number" value="1" name="cantidad" id="cantidad" class="form-control">-->
                                         <textarea class="form-control" name="extra" id="extra"></textarea>
-<!--                                    </div>-->
                                 </div>
                             </div>
                             <div class="form-group" style="padding: 0 0.5em">
@@ -393,7 +368,7 @@
                 success:function (e) {
                     // console.log(e);
                     dat = JSON.parse(e);
-                    // console.log(dat);
+                    console.log(dat);
                     $('#codigo').val(dat.CodAut);
                     $('#nombre').val(dat.Producto);
                     $('#generico').val('');
@@ -404,7 +379,7 @@
                     // $('#precio2').val(dat.Precio3);
                     // $('#precio3').val(dat.Precio4);
                     // $('#precio4').val(dat.Precio5 );
-                    // $('#preciocosto').val(dat.PreCosto);
+                    $('#disponible').val(dat.Cant);
                     $('#precio1').val(parseFloat(dat.Precio).toFixed(2));
                     $('#labelprecio1').html(parseFloat(dat.Precio).toFixed(2));
 
