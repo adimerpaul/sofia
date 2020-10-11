@@ -284,14 +284,31 @@
                             <li>
                                 <a href="<?=base_url()?>Admin">
                                     <i class="fa fa-users" aria-hidden="true"></i>
-                                    <span>Buscar Cliente</span>
+                                    <span>Realizar pedidos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?=base_url()?>Mispedidos">
+                                    <i class="fa fa-folder-o" aria-hidden="true"></i>
+                                    <span>Mis pedidos</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="<?=base_url()?>Cobrar">
-                                    <!--                                    <span class="pull-right label label-primary">182</span>-->
                                     <i class="fa fa-tasks" aria-hidden="true"></i>
-                                    <span>Cuentas por Pedientes</span>
+                                    <span>Cobranzas</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?=base_url()?>Miscobros">
+                                    <i class="fa fa-money" aria-hidden="true"></i>
+                                    <span>Mis Cobros</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?=base_url()?>Listaprecios">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    <span>Listas precios</span>
                                 </a>
                             </li>
 <!--                            <li>-->

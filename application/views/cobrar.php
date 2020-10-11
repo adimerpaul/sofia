@@ -11,11 +11,11 @@
     /*    min-height: 100%;*/
     /*    border-radius: 0;*/
     /*}*/
-    .modal-dialog {
-        width: 90%;
-        height: 90%;
-        padding: 0;
-    }
+    /*.modal-dialog {*/
+    /*    width: 90%;*/
+    /*    height: 90%;*/
+    /*    padding: 0;*/
+    /*}*/
 
     /*.modal-content {*/
     /*    height: 90%;*/
@@ -56,27 +56,26 @@
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal form-bordered" id="formulario" method="post">
-                            <div class="form-group" style="padding: 0 1em">
-                                <div class="col-md-1">
+                            <div class="form-group">
+                                <div class="col-xs-3">
                                     <label class="control-label">CINIT</label>
                                     <input type="text" name="ci" id="ci" class="form-control" required>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-xs-9">
                                     <label class="control-label">Nombre Completo</label>
                                     <input type="text" name="nombre" id="nombre" class="form-control" required>
                                 </div>
-                                <div class="col-md-2">
-                                    <label class="control-label">TOTAL</label>
-                                    <input type="text" name="total" id="total" class="form-control"  disabled>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="control-label">A cuenta</label>
-                                    <input type="text" name="acuenta" id="acuenta" class="form-control" required>
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="control-label">A cuentas</label>
-                                    <button class="btn btn-success"><i class="fa fa-money"></i> A cuenta</button>
-                                </div>
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+
+<!--                                <div class="col-md-3">-->
+<!--                                    <label class="control-label">A cuenta</label>-->
+<!--                                    <input type="text" name="acuenta" id="acuenta" class="form-control" required>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-2">-->
+<!--                                    <label class="control-label">A cuentas</label>-->
+<!--                                    <button class="btn btn-success"><i class="fa fa-money"></i> A cuenta</button>-->
+<!--                                </div>-->
 <!--                                <div class="col-md-5">-->
 <!--                                    <label class="control-label">Nombre generico</label>-->
 <!--                                    <input type="text" name="generico" id="generico" class="form-control">-->
@@ -86,41 +85,29 @@
 <!--                                    <input type="text" name="tipo" id="tipo" class="form-control">-->
 <!--                                </div>-->
                             </div>
+
                         </form>
-                        <form id="agregarpedido">
-                            <div class="table-responsive" style="padding-top: 0.5em">
-                                <div class="panel-group" id="accordionSuccess">
-                                </div>
-<!--                                <table class="table table-bordered mb-none">-->
-<!--                                    <thead>-->
-<!--                                    <tr class="bg bg-primary">-->
-<!--                                        <th>Comanda</th>-->
-<!--                                        <th>Deudaor</th>-->
-<!--                                        <th>Importe</th>-->
-<!--                                        <th>A cuenta</th>-->
-<!--                                        <th>Deuda</th>-->
-<!--                                        <th>Productos</th>-->
-<!--                                    </tr>-->
-<!--                                    </thead>-->
-<!--                                    <tbody id="contenido">-->
-<!--                                    </tbody>-->
-<!--                                    <tfooter>-->
-<!--                                        <tr class="bg bg-warning">-->
-<!--                                            <th></th>-->
-<!--                                            <th></th>-->
-<!--                                            <th>Total</th>-->
-<!--                                            <th id="total">0</th>-->
-<!--                                            <th></th>-->
-<!--                                        </tr>-->
-<!--                                    </tfooter>-->
-<!--                                </table>-->
+                        <form class="form-horizontal form-bordered" method="post" action="<?=base_url()?>Cobrar/insertcobro">
+                            <div class="form-group col-xs-12" id="cuentas">
+<!--                                <div class="checkbox-custom checkbox-default">-->
+<!--                                    <input type="checkbox" checked="" id="checkboxExample1">-->
+<!--                                    <label for="checkboxExample1">Checkbox Default</label>-->
+<!--                                </div>-->
                             </div>
+                            <div class="col-xs-12">
+                                <label > <span id="totalcuentas">0</span> Bs</label>
+                                <input type="text" class="form-control" name="monto" id="montopagado"  placeholder="Monto recibido">
+                                <input type="text" id="cicliente" hidden name="ci">
+                                <label class="bg bg-primary ">TOTAL <span id="total"></span></label>
+                                <!--                                    <input type="text" name="total" id="total" class="form-control"  disabled>-->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" id="btncobro" disabled class="btn btn-warning" > <i class="fa fa-check-circle"></i> Guardar</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fa fa-trash-o"></i> Close</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="modal-footer">
-<!--                        <button type="submit" class="btn btn-primary "> <i class="fa fa-plus-circle"></i> Confirmar pedido</button>-->
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fa fa-trash-o"></i> Close</button>
-                    </div>
-                    </form>
+
                 </div>
             </div>
         </div>
@@ -132,7 +119,7 @@
                 $('#contenido').html('');
                 // console.log(idcliente);
                 $.ajax({
-                    url:'Cobrar/deudas/'+idcliente,
+                    url:'Cobrar/deudas2/'+idcliente,
                     success:function (e) {
                         // console.log(e);
                         if (e=="[]"){
@@ -146,41 +133,49 @@
                             let comanda="";
                             let cont=0;
                             total=0;
+                            $('#cuentas').html('');
                             datos.forEach((res)=>{
+                                $('#cuentas').append('' +
+                                    '              <div class="checkbox-custom checkbox-primary">\n' +
+                                    '                  <input type="checkbox" name="id'+res.comanda+'" class="calcularacuenta" value="'+parseFloat(res.Importe-res.Acuenta).toFixed(2)+'" >\n' +
+                                    '                  <label for="checkboxExample3"><div class="label label-default">Comanda'+res.comanda+'</div> <label class="label label-default"> Saldo'+parseFloat(res.Importe-res.Acuenta).toFixed(2)+'</label></label>' +
+                                    '              </div>' +
+                                    '                 ')
                                 // console.log(res);
-                                if(comanda!=res.Comanda){
-                                    // console.log(res.Comanda);
-                                    comanda=res.Comanda;
-                                    cont=cont+1;
+                                // if(comanda!=res.Comanda){
+                                //     // console.log(res.Comanda);
+                                //     comanda=res.Comanda;
+                                //     cont=cont+1;
                                     total=total+ parseFloat( parseFloat(res.Importe-res.Acuenta).toFixed(2));
-                                    $('#accordionSuccess').append("" +
-                                        "<div class=\"panel panel-accordion panel-accordion-success\">\n" +
-                                        "      <div class=\"panel-heading\">\n" +
-                                        "                                            <h4 class=\"panel-title\">\n" +
-                                        "                                                <a class=\"accordion-toggle\" data-toggle=\"collapse\" data-parent=\"#accordionSuccess\" href=\"#collapse"+cont+"\">\n" +
-                                        "                                                    Comanda N°" +comanda+ "  <span class='badge ' >Importe "+parseFloat(res.Importe).toFixed(2)+" </span><span class='badge '> A cuenta "+parseFloat(res.Acuenta).toFixed(2)+" </span><div class='text-right'><span class='badge '> Saldo  "+parseFloat(res.Importe-res.Acuenta).toFixed(2)+"</span></div>"+
-                                        "                                                </a>\n" +
-                                        "                                            </h4>\n" +
-                                        "                                        </div>\n" +
-                                        "                                        <div id=\"collapse"+cont+"\" class=\"accordion-body collapse\">\n" +
-                                        "                                            <div class=\"panel-body\" >\n" +
-                                        "                                                <table>" +
-                                        "<thead>" +
-                                        "<tr><th>Productos</th></tr>" +
-                                        "</thead>" +
-                                        "<tbody id='co"+comanda+"'>" +
-                                        "</table>" +
-                                        "</tbody>" +
-                                        "                                            </div>\n" +
-                                        "      </div>\n" +
-                                        "</div>" +
-                                        "");
+                                //     $('#accordionSuccess').append("" +
+                                //         "<div class=\"panel panel-accordion panel-accordion-success\">\n" +
+                                //         "      <div class=\"panel-heading\">\n" +
+                                //         "                                            <h4 class=\"panel-title\">\n" +
+                                //         "                                                <a class=\"accordion-toggle\" data-toggle=\"collapse\" data-parent=\"#accordionSuccess\" href=\"#collapse"+cont+"\">\n" +
+                                //         "                                                    Comanda N°" +comanda+ "  <span class='badge ' >Importe "+parseFloat(res.Importe).toFixed(2)+" </span><span class='badge '> A cuenta "+parseFloat(res.Acuenta).toFixed(2)+" </span><div class='text-right'><span class='badge '> Saldo  "+parseFloat(res.Importe-res.Acuenta).toFixed(2)+"</span></div>"+
+                                //         "                                                </a>\n" +
+                                //         "                                            </h4>\n" +
+                                //         "                                        </div>\n" +
+                                //         "                                        <div id=\"collapse"+cont+"\" class=\"accordion-body collapse\">\n" +
+                                //         "                                            <div class=\"panel-body\" >\n" +
+                                //         "                                                <table>" +
+                                //         "<thead>" +
+                                //         "<tr><th>Productos</th></tr>" +
+                                //         "</thead>" +
+                                //         "<tbody id='co"+comanda+"'>" +
+                                //         "</table>" +
+                                //         "</tbody>" +
+                                //         "                                            </div>\n" +
+                                //         "      </div>\n" +
+                                //         "</div>" +
+                                //         "");
+                                //
+                                // }else{
+                                //     $('#co'+comanda).append("<tr>" +
+                                //         "<td>"+res.Producto+"</td>" +
+                                //         "</tr>" );
+                                // }
 
-                                }else{
-                                    $('#co'+comanda).append("<tr>" +
-                                        "<td>"+res.Producto+"</td>" +
-                                        "</tr>" );
-                                }
                                 // $('#contenido').append("<tr>" +
                                 //     "<td>"+res.Comanda+"</td>" +
                                 //     "<td>"+res.Nombres+"</td>" +
@@ -197,13 +192,14 @@
                                 //     "<td>"+res.Producto+"</td>" +
                                 //     "</tr>");
                             });
-                            $('#total').val(total.toFixed(2))
+                            $('#total').html(total.toFixed(2))
                         }
                     }
                 })
             }
             function  seleccionar(id){
                 idcliente=id;
+                $('#cicliente').val(id);
                 // console.log(idcliente);
                 datosfun();
 
@@ -214,8 +210,8 @@
             <tr>
                 <th>CINIT</th>
                 <th>Deudor</th>
-                <th>Importe </th>
-                <th class="hidden-phone">A cuenta</th>
+<!--                <th>Telefono </th>-->
+<!--                <th class="hidden-phone">A cuenta</th>-->
                 <th class="hidden-phone">Deuda</th>
             </tr>
             </thead>
@@ -226,8 +222,7 @@
                 echo "<tr class='gradeX'>
                     <td>$row->Id</td>
                     <td>$row->Nombres</td>
-                    <td>$row->Telf</td>
-                    <td class='center hidden-phone'>$row->Direccion</td>
+                 
                     <td class='center hidden-phone'><a class='mb-xs mt-xs mr-xs btn btn-dark ' onclick='seleccionar($row->Id)'  data-toggle='modal' data-target='#modalBootstrap'> <i class='fa fa-money'></i>Cuentas por cobrar</a></td>
                 </tr>";
             }
@@ -239,6 +234,17 @@
 </section>
 <script>
     window.onload=function (e) {
+        $('#montopagado').keyup(function (e) {
+            let total=parseFloat($('#total').html());
+            let monto=parseFloat($(this).val());
+            let acuenta=parseFloat($('#totalcuentas').html());
+            console.log(monto>acuenta && monto<=total);
+            if (monto>acuenta && monto<=total){
+                $('#btncobro').prop("disabled", false);
+            }else{
+                $('#btncobro').prop('disabled',true);
+            }
+        });
         // var idcliente;
         var idproducto;
         // $('#producto').change(function (e) {
@@ -332,21 +338,21 @@
 
 
 
-        $('#formulario').submit(function (e) {
-            // console.log(parseFloat($('#total').val())<=parseFloat($('#acuenta').val()));
-            if ( parseFloat($('#total').val())>=parseFloat($('#acuenta').val()) && $('#acuenta').val()!=0){
-                $.ajax({
-                    url:'Cobrar/pagado/'+idcliente+'/'+$('#acuenta').val(),
-                    success:function (e) {
-                        // console.log(e);
-                        $('#acuenta').val('');
-                        alert('Insertado correctamente!!!');
-                        datosfun();
-                    }
-                })
-            }else{
-                alert('Lo siento el sistema aun no permite adelantos!!!!!')
-            }
+        // $('#formulario').submit(function (e) {
+        //     // console.log(parseFloat($('#total').val())<=parseFloat($('#acuenta').val()));
+        //     if ( parseFloat($('#total').val())>=parseFloat($('#acuenta').val()) && $('#acuenta').val()!=0){
+        //         $.ajax({
+        //             url:'Cobrar/pagado/'+idcliente+'/'+$('#acuenta').val(),
+        //             success:function (e) {
+        //                 // console.log(e);
+        //                 $('#acuenta').val('');
+        //                 alert('Insertado correctamente!!!');
+        //                 datosfun();
+        //             }
+        //         })
+        //     }else{
+        //         alert('Lo siento el sistema aun no permite adelantos!!!!!')
+        //     }
 
             // console.log(idcliente);
             // console.log($('#acuenta').val());
@@ -369,27 +375,38 @@
             //         "                                </tr>");
             //     // calcular_total();
             // }
-            return false;
-        });
-
-        // function calcular_total() {
-        //     importe_total = 0;
-        //     // console.log('a');
-        //     $(".subtotal").each(
-        //         function(index, value) {
-        //             importe_total = importe_total + eval($(this).val());
-        //         }
-        //     );
-        //     // $('#to').html(importe_total);
-        //     $('#total').html(importe_total.toFixed(2)+" Bs.");
-        // }
-        // $("#contenido").on("click",".eliproducto", function(e){
-        //     e.preventDefault();
-        //     if (confirm("Seguro de cancelar?")){
-        //         $(this).closest('tr').remove();
-        //         calcular_total();
-        //     }
+        //     return false;
         // });
+
+        function calcular_total() {
+            importe_total = 0;
+            // console.log('a');
+            $(".subtotalacuenta").each(
+                function(index, value) {
+                    importe_total = importe_total + eval($(this).val());
+                }
+            );
+            // $('#to').html(importe_total);
+            $('#totalcuentas').html(importe_total.toFixed(2));
+        }
+        $("#cuentas").on("click",".calcularacuenta", function(e){
+            // console.log('aaa');
+            // console.log($(this).prop());
+            if ($(this).is(":checked"))
+            {
+                // console.log('esta marcado');
+                $(this).addClass('subtotalacuenta');
+            }else{
+                // console.log('no esta marcado');
+                $(this).removeClass('subtotalacuenta');
+            }
+            calcular_total();
+            // e.preventDefault();
+            // if (confirm("Seguro de cancelar?")){
+            //     $(this).closest('tr').remove();
+            //     calcular_total();
+            // }
+        });
         // $('#agregarpedido').submit(function (e) {
         //     var formData = $("#agregarpedido").serializeArray();
         //     if (formData.length==0){

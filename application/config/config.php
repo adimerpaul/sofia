@@ -24,6 +24,7 @@ date_default_timezone_set('America/La_Paz');
 |
 */
 $config['base_url'] = 'http://localhost/sofia';
+//$config['base_url'] = 'http://192.168.1.14/sofia';
 
 /*
 |--------------------------------------------------------------------------

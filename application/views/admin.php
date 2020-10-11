@@ -130,15 +130,15 @@
                                 </div>
                             </div>
                             <div class="form-group" style="padding: 0 1em">
-                                    <div class="col-md-1">
+                                    <div class="col-md-2">
 <!--                                        <div class="form-group">-->
                                             <label class="control-label">Codigo</label>
-                                            <input type="text" name="codigo" id="codigo" class="form-control" required>
+                                            <input type="text" name="codigo" id="codigo" class="form-control" required disabled>
 <!--                                        </div>-->
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-4">
                                             <label class="control-label">Nombre Comercial/Producto</label>
-                                            <input type="text" name="nombre" id="nombre" class="form-control">
+                                            <input type="text" name="nombre" id="nombre" class="form-control" disabled>
                                     </div>
                                 <div class="col-md-2">
                                     <label class="control-label">Cantidad disponible</label>
@@ -153,73 +153,73 @@
                                 <div class="col-md-8">
                                     <label class="control-label">Seleccionar Precio</label>
                                     <div class="row " style="padding: 0 0.5em">
-                                        <div class="radio col-md-1">
+                                        <div class="radio col-md-1" id="pre1">
 <!--                                            <label>-->
                                                 <input type="radio" name="precio" required id="precio1" checked >
                                                 <small id="labelprecio1">00.00</small>
 <!--                                            </label>-->
                                         </div>
-                                        <div class="radio col-md-1">
+                                        <div class="radio col-md-1" id="pre2">
 <!--                                            <label>-->
                                                 <input type="radio" name="precio" required id="precio2">
                                             <small id="labelprecio2">00.00</small>
 <!--                                            </label>-->
                                         </div>
-                                        <div class="radio col-md-1">
+                                        <div class="radio col-md-1" id="pre3">
 <!--                                            <label>-->
                                                 <input type="radio" name="precio" required id="precio3">
                                             <small id="labelprecio3">00.00</small>
 <!--                                            </label>-->
                                         </div>
-                                        <div class="radio col-md-1">
+                                        <div class="radio col-md-1" id="pre4">
 <!--                                            <label>-->
                                                 <input type="radio" name="precio" required id="precio4">
                                             <small id="labelprecio4">00.00</small>
 <!--                                            </label>-->
                                         </div>
-                                        <div class="radio col-md-1">
+                                        <div class="radio col-md-1" id="pre5">
 <!--                                            <label>-->
                                                 <input type="radio" name="precio" required id="precio5">
                                                 <small id="labelprecio5">00.00</small>
 <!--                                            </label>-->
                                         </div>
-                                        <div class="radio col-md-1">
+                                        <div class="radio col-md-1" id="pre6">
 <!--                                            <label>-->
                                                 <input type="radio" name="precio" required id="precio6">
                                                 <small id="labelprecio6">00.00</small>
 <!--                                            </label>-->
                                         </div>
-                                        <div class="radio col-md-1">
+                                        <div class="radio col-md-1" id="pre7">
 <!--                                            <label>-->
                                                 <input type="radio" name="precio" required id="precio7">
                                                 <small id="labelprecio7">00.00</small>
 <!--                                            </label>-->
                                         </div>
-                                        <div class="radio col-md-1">
+                                        <div class="radio col-md-1" id="pre8">
 <!--                                            <label>-->
                                                 <input type="radio" name="precio" required id="precio8">
                                                 <small id="labelprecio8">00.00</small>
 <!--                                            </label>-->
                                         </div>
-                                        <div class="radio col-md-1">
+                                        <div class="radio col-md-1" id="pre9">
 <!--                                            <label>-->
                                                 <input type="radio" name="precio" required id="precio9">
                                                 <small id="labelprecio9">00.00</small>
 <!--                                            </label>-->
                                         </div>
-                                        <div class="radio col-md-1">
+                                        <div class="radio col-md-1" id="pre10">
 <!--                                            <label>-->
                                                 <input type="radio" name="precio" required id="precio10">
                                                 <small id="labelprecio10">00.00</small>
 <!--                                            </label>-->
                                         </div>
-                                        <div class="radio col-md-1">
+                                        <div class="radio col-md-1" id="pre11">
 <!--                                            <label>-->
                                                 <input type="radio" name="precio" required id="precio11">
                                                 <small id="labelprecio11">00.00</small>
 <!--                                            </label>-->
                                         </div>
-                                        <div class="radio col-md-1">
+                                        <div class="radio col-md-1" id="pre12">
 <!--                                            <label>-->
                                                 <input type="radio" name="precio" required id="precio12">
                                                 <small id="labelprecio12">00.00</small>
@@ -233,7 +233,7 @@
 <!--                                    <input type="radio" name="precio" required id="precio" class="form-control">-->
 <!--                                    </div>-->
 <!--                                </div>-->
-<!--                                <div class="col-md-1">-->
+<!--                                <div class="col-md-1" id=>-->
 <!--                                    <div class="form-group">-->
 <!--                                        <label class="control-label">2do Precio</label>-->
 <!--                                        <input type="text" name="precio2" id="precio2" class="form-control">-->
@@ -299,16 +299,16 @@
                                 </thead>
                                 <tbody id="contenido">
                                 </tbody>
-                                <tfooter>
-                                    <tr class="bg bg-warning">
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th>Total</th>
-                                        <th id="total">0</th>
-                                        <th></th>
-                                    </tr>
-                                </tfooter>
+<!--                                <tfooter>-->
+<!--                                    <tr class="bg bg-warning">-->
+<!--                                        <th></th>-->
+<!--                                        <th></th>-->
+<!--                                        <th></th>-->
+<!--                                        <th>Total</th>-->
+<!--                                        <th id="total">0</th>-->
+<!--                                        <th></th>-->
+<!--                                    </tr>-->
+<!--                                </tfooter>-->
                             </table>
                         </div>
                     </div>
@@ -321,9 +321,12 @@
             </div>
         </div>
         <script>
-            function  seleccionar(id){
+            var idcliente;
+            var cat;
+            function  seleccionar(id,cate){
                 idcliente=id;
-                console.log(idcliente);
+                cat=cate;
+                // console.log(cat);
             }
         </script>
         <table class="table table-bordered table-striped mb-none" id="datatable-default">
@@ -345,7 +348,7 @@
                     <td>$row->Nombres</td>
                     <td>$row->Telf</td>
                     <td class='center hidden-phone'>$row->Direccion</td>
-                    <td class='center hidden-phone'><a class='mb-xs mt-xs mr-xs btn btn-info ' onclick='seleccionar($row->Cod_Aut)' data-id='$row->Cod_Aut' data-toggle='modal' data-target='#modalBootstrap'> <i class='fa fa-truck'></i>Productos</a></td>
+                    <td class='center hidden-phone'><a class='mb-xs mt-xs mr-xs btn btn-info ' onclick='seleccionar($row->Cod_Aut,$row->Categoria)' data-id='$row->Cod_Aut' data-cat='$row->Categoria' data-toggle='modal' data-target='#modalBootstrap'> <i class='fa fa-truck'></i>Productos</a></td>
                 </tr>";
             }
             ?>
@@ -356,7 +359,6 @@
 </section>
 <script>
     window.onload=function (e) {
-        var idcliente;
         var idproducto;
         $('#producto').change(function (e) {
             // console.log($(this).val());
@@ -366,53 +368,61 @@
                 type:'POST',
                 data:'id='+idproducto,
                 success:function (e) {
-                    // console.log(e);
                     dat = JSON.parse(e);
-                    console.log(dat);
+                    // console.log(dat) ;
+                    if (e=="null"){
+                        dat={};
+                    }else{
+                        dat = JSON.parse(e);
+                    }
+                    $('#pre1').hide();
+                    $('#pre2').hide();
+                    $('#pre3').hide();
+                    $('#pre4').hide();
+                    $('#pre5').hide();
+                    $('#pre6').hide();
+                    $('#pre7').hide();
+                    $('#pre8').hide();
+                    $('#pre9').hide();
+                    $('#pre10').hide();
+                    $('#pre11').hide();
+                    $('#pre12').hide();
+                    // console.log( cat);
+                    $('#pre'+(cat+1)).show();
+                    $( "#pre"+(cat+1)).prop( "checked", true );
+
+
+
                     $('#codigo').val(dat.CodAut);
                     $('#nombre').val(dat.Producto);
                     $('#generico').val('');
                     $('#tipo').val(dat.TipPro);
                     $('#unidad').val(dat.codUnid);
                     $('#peso').val(dat.Peso);
-                    // $('#precio').val(dat.Precio);
-                    // $('#precio2').val(dat.Precio3);
-                    // $('#precio3').val(dat.Precio4);
-                    // $('#precio4').val(dat.Precio5 );
                     $('#disponible').val(dat.Cant);
+
                     $('#precio1').val(parseFloat(dat.Precio).toFixed(2));
                     $('#labelprecio1').html(parseFloat(dat.Precio).toFixed(2));
-
                     $('#precio2').val(parseFloat(dat.Precio_Costo).toFixed(2));
                     $('#labelprecio2').html(parseFloat(dat.Precio_Costo).toFixed(2));
-
                     $('#precio3').val(parseFloat(dat.Precio3).toFixed(2));
                     $('#labelprecio3').html(parseFloat(dat.Precio3).toFixed(2));
-
                     $('#precio4').val(parseFloat(dat.Precio4).toFixed(2));
                     $('#labelprecio4').html(parseFloat(dat.Precio4).toFixed(2));
-
                     $('#precio5').val(parseFloat(dat.Precio5).toFixed(2));
                     $('#labelprecio5').html(parseFloat(dat.Precio5).toFixed(2));
-
                     $('#precio6').val(parseFloat(dat.Precio6).toFixed(2));
                     $('#labelprecio6').html(parseFloat(dat.Precio6).toFixed(2));
-
                     $('#precio7').val(parseFloat(dat.Precio7).toFixed(2));
                     $('#labelprecio7').html(parseFloat(dat.Precio7).toFixed(2));
-
                     $('#precio8').val(parseFloat(dat.Precio8).toFixed(2));
                     $('#labelprecio8').html(parseFloat(dat.Precio8).toFixed(2));
-
                     $('#precio9').val(parseFloat(dat.Precio9).toFixed(2));
                     $('#labelprecio9').html(parseFloat(dat.Precio9).toFixed(2));
-
                     $('#precio10').val(parseFloat(dat.Precio10).toFixed(2));
                     $('#labelprecio10').html(parseFloat(dat.Precio10).toFixed(2));
-
                     $('#precio11').val(parseFloat(dat.Precio11).toFixed(2));
                     $('#labelprecio11').html(parseFloat(dat.Precio11).toFixed(2));
-
                     $('#precio12').val(parseFloat(dat.Precio12).toFixed(2));
                     $('#labelprecio12').html(parseFloat(dat.Precio12).toFixed(2));
 
@@ -424,12 +434,12 @@
         // })
         $('.select').click(function (e) {
             // console.log($(this).attr('data-id'));
-            idcliente=$(this).attr('data-id');
+            // idcliente=$(this).attr('data-id');
+            // cat=$(this).attr('data-cat');
             // console.log(idcliente);
         });
 
         $('#formulario').submit(function (e) {
-
             var precio=$('input[name=precio]:checked', '#formulario').val();
             // console.log(precio);
             if( parseInt(precio)==0){
@@ -480,11 +490,14 @@
                 //console.log($("#agregarpedido").serialize());
                 formData.push({name:"idcliente",value:idcliente})
                 // console.log(formData);
+                // console.log(idcliente);
                 $.ajax({
                     type: 'POST',
                     url:'Admin/pedido',
                     data:formData,
                     success:function (e) {
+                        // console.log(e);
+                        // return false;
                         alert("Se guardo el pedido exitosamente!!")
                         $('#contenido').html('');
                         $('#modalBootstrap').modal('hide');

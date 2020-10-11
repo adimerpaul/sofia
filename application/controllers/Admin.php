@@ -11,13 +11,19 @@ class Admin extends CI_Controller {
         $this->load->view('templates/footer');
     }
     public function product(){
+
         $id= $_POST['id'];
-        $query=$this->db->query("SELECT * 
+            $query=$this->db->query("SELECT * 
          FROM tbproductos t INNER JOIN tbstock s ON s.cod_prod=t.cod_prod
          WHERE t.CodAut='$id'");
+//            if ($query->num_rows()==0){
+//                echo "-1";
+//            }
         echo json_encode($query->row());
     }
     public function pedido(){
+//        echo $_POST['idcliente'];
+//        exit;
 //        $query=$this->db->query();
         $query=$this->db->query("SELECT max(NroPed) as maximo FROM `tbpedidos`");
         $row=$query->row();
