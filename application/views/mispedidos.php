@@ -121,7 +121,7 @@
             $query=$this->db->query("SELECT NroPed,Nombres,estado,count(*) cantidad 
 FROM tbpedidos p 
 INNER JOIN tbclientes c ON c.Cod_Aut=p.idCli 
-WHERE CIfunc='7' AND estado='CREADO'
+WHERE CIfunc='".$_SESSION['CodAut']."' AND estado='CREADO'
 GROUP BY NroPed,Nombres");
             foreach ($query->result() as $row){
                 echo "<tr class='gradeX'>
