@@ -389,7 +389,7 @@
                     $('#pre12').hide();
                     // console.log( cat);
                     $('#pre'+(cat+1)).show();
-                    $( "#pre"+(cat+1)).prop( "checked", true );
+                    $( "#precio"+(cat+1)).prop( "checked", true );
 
 
 

@@ -47,6 +47,6 @@ $numpedido=$_POST['idpedido'];
                 );
             }
         }
-        header('Location: '.base_url().'Mispedidos');
+        header('Location: '.base_url().'Miscobros');
     }
 }

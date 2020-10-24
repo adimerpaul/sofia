@@ -37,16 +37,16 @@ class Miscobros extends CI_Controller {
         $this->db->query("DELETE FROM tbpedidos WHERE  NroPed='$id'");
     }
     public function enviar(){
-        $query=$this->db->query("SELECT NroPed FROM tbpedidos GROUP BY NroPed");
+        $query=$this->db->query("SELECT codAut FROM tbctascow GROUP BY codAut");
         foreach ($query->result() as $row){
-//            echo $_POST["id".$row->NroPed];
-            if (isset($_POST["id".$row->NroPed])){
-                $this->db->query("UPDATE  tbpedidos SET
+//            echo $_POST["id".$row->codAut];
+            if (isset($_POST["id".$row->codAut])){
+                $this->db->query("UPDATE  tbctascow SET
                  estado='ENVIADO'
-                 WHERE  NroPed='$row->NroPed';"
+                 WHERE  codAut='$row->codAut';"
                 );
             }
         }
-        header('Location: '.base_url().'Mispedidos');
+        header('Location: '.base_url().'Miscobros');
     }
 }

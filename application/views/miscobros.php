@@ -106,7 +106,7 @@
                 // console.log(idcliente);
             }
         </script>
-        <form action="<?=base_url()?>Mispedidos/enviar" method="post">
+        <form action="<?=base_url()?>Miscobros/enviar" method="post">
             <table class="table table-bordered table-striped mb-none" id="datatable-default">
                 <thead>
                 <tr>
@@ -117,19 +117,21 @@
                 </thead>
                 <tbody>
                 <?php
-                $query=$this->db->query("SELECT * FROM tbctascow c INNER JOIN tbclientes cl ON cl.Id=c.idCli");
+                $query=$this->db->query("SELECT * FROM tbctascow c 
+INNER JOIN tbclientes cl ON cl.Id=c.idCli
+WHERE CIfunc='".$_SESSION['CodAut']."' AND estado='CREADO'
+");
                 foreach ($query->result() as $row){
                     echo "<tr class='gradeX'>
-                    <td>$row->Nombres </td>
+                    <td>$row->Nombres <input name='id$row->codAut' value='$row->codAut' hidden></td>
                     <td>$row->pago</td>
-                    <td>$row->fecha</td>
-                   
+                    <td>$row->fecha</td>  
                 </tr>";
                 }
                 ?>
                 </tbody>
             </table>
-            <button id="enviar" class="btn btn-success btn-block btn-sm"><i class="fa fa-check"></i>Enviar Todos los productos</button>
+            <button id="enviar" class="btn btn-success btn-block btn-sm"><i class="fa fa-money"></i>Enviar Todos mis cobros</button>
         </form>
     </div>
 </section>
