@@ -11,7 +11,11 @@ class Mispedidos extends CI_Controller {
         $this->load->view('templates/footer');
     }
     public function product($id){
-        $query=$this->db->query("SELECT p.codAut,Producto,p.cod_prod,p.Cant,p.Canttxt,p.precio FROM tbpedidos p INNER JOIN tbproductos pr ON p.cod_prod=pr.CodAut WHERE p.NroPed='$id'");
+        $query=$this->db->query("
+SELECT *
+FROM tbpedidos p 
+INNER JOIN tbproductos pr ON p.cod_prod=pr.CodAut 
+WHERE p.NroPed='$id'");
         echo json_encode($query->result_array());
     }
     public function pedido(){

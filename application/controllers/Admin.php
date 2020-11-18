@@ -13,9 +13,14 @@ class Admin extends CI_Controller {
     public function product(){
 
         $id= $_POST['id'];
-            $query=$this->db->query("SELECT * 
+            $query=$this->db->query("
+         SELECT t.CodAut,t.Producto,t.TipPro,t.codUnid,t.Peso,s.Cant,t.Precio,t.Precio_Costo,
+         t.Precio3,t.Precio4,t.Precio5,t.Precio6,t.Precio7,t.Precio8,t.Precio9,Precio10,Precio11,t.Precio12,
+         gp.Descripcion
          FROM tbproductos t INNER JOIN tbstock s ON s.cod_prod=t.cod_prod
-         WHERE t.CodAut='$id'");
+         INNER JOIN tbgrupos g ON t.cod_grup=g.Cod_grup
+         INNER JOIN tbgrupopadre gp ON g.Cod_pdr=gp.cod_grup
+         WHERE t.cod_prod='$id'");
 //            if ($query->num_rows()==0){
 //                echo "-1";
 //            }
@@ -38,7 +43,11 @@ class Admin extends CI_Controller {
 `cod_prod`='".$row->CodAut."',
 `CIfunc`='$CIfunc',
  `idCli`='".$_POST['idcliente']."',
+ `impreso`='0',
+ `pagado`='0',
  `Cant`='".$_POST['cantidad'.$row->CodAut]."',
+ `Tipo1`='".$_POST['t1'.$row->CodAut]."',
+ `Tipo2`='".$_POST['t2'.$row->CodAut]."',
  `precio`='".$_POST['precio'.$row->CodAut]."',
  `Canttxt`='".$_POST['extra'.$row->CodAut]."',
  `fecha`='".date("Y-m-d H:i:s")."';");
