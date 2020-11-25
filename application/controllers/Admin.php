@@ -36,20 +36,20 @@ class Admin extends CI_Controller {
         $CIfunc=$_SESSION['CodAut'];
         $query=$this->db->query("SELECT * FROM `tbproductos`");
         foreach ($query->result() as $row){
-            if (isset($_POST["id".$row->CodAut])){
+            if (isset($_POST["id".$row->cod_prod])){
 //                echo $row->Producto;
                 $this->db->query("INSERT INTO tbpedidos SET
 `NroPed`='$numpedido',
-`cod_prod`='".$row->CodAut."',
+`cod_prod`='".$row->cod_prod."',
 `CIfunc`='$CIfunc',
  `idCli`='".$_POST['idcliente']."',
  `impreso`='0',
  `pagado`='0',
- `Cant`='".$_POST['cantidad'.$row->CodAut]."',
- `Tipo1`='".$_POST['t1'.$row->CodAut]."',
- `Tipo2`='".$_POST['t2'.$row->CodAut]."',
- `precio`='".$_POST['precio'.$row->CodAut]."',
- `Canttxt`='".$_POST['extra'.$row->CodAut]."',
+ `Cant`='".$_POST['cantidad'.$row->cod_prod]."',
+ `Tipo1`='".$_POST['t1'.$row->cod_prod]."',
+ `Tipo2`='".$_POST['t2'.$row->cod_prod]."',
+ `precio`='".$_POST['precio'.$row->cod_prod]."',
+ `Canttxt`='".$_POST['extra'.$row->cod_prod]."',
  `fecha`='".date("Y-m-d H:i:s")."';");
             }
         }

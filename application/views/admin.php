@@ -547,7 +547,7 @@
                     url:'Admin/pedido',
                     data:formData,
                     success:function (e) {
-                        // console.log(e);
+                        console.log(e);
                         // return false;
                         alert("Se guardo el pedido exitosamente!!")
                         $('#contenido').html('');

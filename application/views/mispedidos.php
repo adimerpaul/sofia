@@ -345,8 +345,8 @@
                             </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary "> <i class="fa fa-plus-circle"></i> Confirmar pedido</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fa fa-trash-o"></i> Close</button>
+                        <button type="submit" class="btn btn-warning "> <i class="fa fa-plus-circle"></i> modificar pedido</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fa fa-trash-o"></i> Cancelar</button>
                     </div>
                     </form>
                 </div>
@@ -357,6 +357,17 @@
             var idpedido;
             var idcliente;
             var cat;
+            function calcular_total() {
+                importe_total = 0;
+                // console.log('a');
+                $(".subtotal").each(
+                    function(index, value) {
+                        importe_total = importe_total + eval($(this).val());
+                    }
+                );
+                // $('#to').html(importe_total);
+                $('#total').html(importe_total.toFixed(2)+" Bs.");
+            }
             function  seleccionar(id,idclien,cate){
                 idpedido=id;
                 idcliente=idclien;
@@ -366,18 +377,24 @@
                    url:'Mispedidos/product/'+id,
                     success:function (e) {
                         let dat =JSON.parse(e);
-                        // console.log(dat);
+                        console.log(dat);
                         dat.forEach(res=>{
+                            var subtotal=res.Cant*parseFloat(res.precio);
                             $('#contenido').append("<tr>\n" +
-                                "<td>"+res.Producto+" <input hidden name='id"+res.cod_prod+"' value='"+res.cod_prod+"'></td>\n" +
-                                "<td>"+parseFloat(res.precio).toFixed(2)+"<input hidden name='idpedido"+res.cod_prod+"' value='"+res.codAut+"'></td>\n" +
-                                "<td><input type='number' class='form-control'  name='cantidad"+res.cod_prod+"' value='"+res.Cant+"'></td>\n" +
-                                "<td>"+res.Canttxt+"  <input hidden name='extra"+res.cod_prod+"' value='"+res.Canttxt+"'></td>\n" +
-                                "<td><button class='btn btn-danger p-1 eliproducto' id-pedido='"+res.codAut+"'><i class='fa fa-trash-o'></i></button></td>\n" +
-                                "</tr>");
+                                "                                    <td>"+res.Producto+" <input hidden name='id"+res.cod_prod+"' value='"+res.cod_prod+"'></td>\n" +
+                                "                                    <td>"+parseFloat(res.precio).toFixed(2)+"<input hidden name='precio"+res.cod_prod+"' value='"+parseFloat(res.precio).toFixed(2)+"'></td>\n" +
+                                "                                    <td>"+res.Cant+"  <input hidden name='cantidad"+res.cod_prod+"' value='"+res.Cant+"'></td>\n" +
+                                "                                    <td>"+res.Tipo1+"  <input hidden name='t1"+res.cod_prod+"' value='"+res.Tipo1+"'></td>\n" +
+                                "                                    <td>"+res.Tipo2+"  <input hidden name='t2"+res.cod_prod+"' value='"+res.Tipo2+"'></td>\n" +
+                                "                                    <td>"+res.Canttxt+"  <input hidden name='extra"+res.cod_prod+"' value='"+res.Canttxt+"'></td>\n" +
+                                "                                    <td><span>"+parseFloat(subtotal).toFixed(2)+" Bs.</span><input class='subtotal' name='s"+res.cod_prod+"' value='"+parseFloat(subtotal).toFixed(2)+"' hidden > </td>" +
+                                "<td><button class='btn btn-danger p-1 eliproducto'><i class='fa fa-trash-o'></i></button></td>\n" +
+                                "                                </tr>");
+
                         })
                     }
                 });
+                calcular_total();
                 // console.log(idcliente);
             }
         </script>
@@ -520,25 +537,20 @@ GROUP BY NroPed,Nombres");
 
         $("#contenido").on("click",".eliproducto", function(e){
             e.preventDefault();
-            if (confirm("Seguro de eliminar?")){
-                let idpedi=($(this).attr('id-pedido'));
-                $.ajax({
-                    url:'Mispedidos/eliminarpedido/'+idpedi,
-                    success:function (e) {
-                        // console.log(e);
-                        // $(this).closest('tr').remove();
-                        $('#modalBootstrap').modal('hide');
-                    }
-                })
+            if (confirm("Seguro de cancelar?")){
+                $(this).closest('tr').remove();
+                calcular_total();
             }
         });
+
         $('#agregarpedido').submit(function (e) {
             var formData = $("#agregarpedido").serializeArray();
-            if (formData.length==0){
-                alert('Tienes que tener productos!!');
-            }else{
+            // if (formData.length==0){
+            //     alert('Tienes que tener productos!!');
+            // }else{
                 //console.log($("#agregarpedido").serialize());
                 formData.push({name:"idpedido",value:idpedido})
+                formData.push({name:"idcliente",value:idcliente})
                 // console.log(formData);
                 // return false;
                 // console.log(formData);
@@ -549,14 +561,15 @@ GROUP BY NroPed,Nombres");
                     success:function (e) {
                         // console.log(e);
                         alert("Se Modifico el pedido exitosamente!!")
+                        location.reload();
                         // $('#contenido').html('');
-                        $('#modalBootstrap').modal('hide');
+                        // $('#modalBootstrap').modal('hide');
                         // $('#total').html('0')
                         // $('#extra').val('')
                         // console.log(e);
                     }
                 })
-            }
+            // }
             return false;
         });
         $('#deletepedido').click(function () {
@@ -570,6 +583,39 @@ GROUP BY NroPed,Nombres");
                 })
             }
         });
+
+        $('#formulario').submit(function (e) {
+            // var precio=$('input[name=precio]:checked', '#formulario').val();
+            let precio=$('#precioc').val();
+            // console.log(precio);
+            if( parseInt(precio)==0){
+                alert('nose puede escoger un precio 0');
+                return false;
+            }else{
+                var cantidad= parseInt( $('#cantidad').val());
+                var subtotal=cantidad*parseFloat(precio);
+                var nombre=$('#nombre').val();
+                var extra=$('#extra').val();
+                var t1=$('#t1').val();
+                var t2=$('#t2').val();
+                // console.log(cantidad);
+                $('#contenido').append("<tr>\n" +
+                    "                                    <td>"+nombre+" <input hidden name='id"+idproducto+"' value='"+idproducto+"'></td>\n" +
+                    "                                    <td>"+parseFloat(precio).toFixed(2)+"<input hidden name='precio"+idproducto+"' value='"+parseFloat(precio).toFixed(2)+"'></td>\n" +
+                    "                                    <td>"+cantidad+"  <input hidden name='cantidad"+idproducto+"' value='"+cantidad+"'></td>\n" +
+                    "                                    <td>"+t1+"  <input hidden name='t1"+idproducto+"' value='"+t1+"'></td>\n" +
+                    "                                    <td>"+t2+"  <input hidden name='t2"+idproducto+"' value='"+t2+"'></td>\n" +
+                    "                                    <td>"+extra+"  <input hidden name='extra"+idproducto+"' value='"+extra+"'></td>\n" +
+                    "                                    <td><span>"+parseFloat(subtotal).toFixed(2)+" Bs.</span><input class='subtotal' name='s"+idproducto+"' value='"+parseFloat(subtotal).toFixed(2)+"' hidden > </td>" +
+                    "<td><button class='btn btn-danger p-1 eliproducto'><i class='fa fa-trash-o'></i></button></td>\n" +
+                    "                                </tr>");
+                calcular_total();
+                $('#extra').val('')
+            }
+            return false;
+        });
+
+
         $('#enviar').click(function (e) {
             if (!confirm('Seguro de enviar todo los pedidos'))
                 e.preventDefault();
