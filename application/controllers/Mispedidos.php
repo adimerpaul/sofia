@@ -18,6 +18,10 @@ INNER JOIN tbproductos pr ON p.cod_prod=pr.cod_prod
 WHERE p.NroPed='$id'");
         echo json_encode($query->result_array());
     }
+    public function eliminar($id){
+        $this->db->query("DELETE FROM tbpedidos WHERE  NroPed='$id'");
+        header('Location: '.base_url().'Mispedidos');
+    }
     public function pedido(){
 //        $query=$this->db->query();
         $numpedido=$_POST['idpedido'];

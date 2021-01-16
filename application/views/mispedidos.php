@@ -345,8 +345,9 @@
                             </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-warning "> <i class="fa fa-plus-circle"></i> modificar pedido</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fa fa-trash-o"></i> Cancelar</button>
+                        <button type="submit" class="btn btn-warning "> <i class="fa fa-plus-circle"></i> Modificar pedido</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> <i class="fa fa-eye"></i> Cerrar</button>
+                        <a href="<?=base_url()?>Mispedidos/eliminar/" id="eliminar"  class="btn btn-danger"> <i class="fa fa-trash-o"></i> Cancelar pedido</a>
                     </div>
                     </form>
                 </div>
@@ -354,9 +355,11 @@
         </div>
 
         <script>
+
             var idpedido;
             var idcliente;
             var cat;
+
             function calcular_total() {
                 importe_total = 0;
                 // console.log('a');
@@ -370,6 +373,7 @@
             }
             function  seleccionar(id,idclien,cate){
                 idpedido=id;
+
                 idcliente=idclien;
                 cat=cate;
                 $('#contenido').html('');
@@ -377,9 +381,11 @@
                    url:'Mispedidos/product/'+id,
                     success:function (e) {
                         let dat =JSON.parse(e);
-                        console.log(dat);
+                        // console.log(dat);
                         dat.forEach(res=>{
+                            // console.log(res);
                             var subtotal=res.Cant*parseFloat(res.precio);
+                            $('#eliminar').prop('href','<?=base_url()?>Mispedidos/eliminar/'+res.NroPed)
                             $('#contenido').append("<tr>\n" +
                                 "                                    <td>"+res.Producto+" <input hidden name='id"+res.cod_prod+"' value='"+res.cod_prod+"'></td>\n" +
                                 "                                    <td>"+parseFloat(res.precio).toFixed(2)+"<input hidden name='precio"+res.cod_prod+"' value='"+parseFloat(res.precio).toFixed(2)+"'></td>\n" +
@@ -432,6 +438,14 @@ GROUP BY NroPed,Nombres");
 </section>
 <script>
     window.onload=function (e) {
+        $('#eliminar').click(function (e) {
+            if(confirm('Seguro de eliminar?')){
+
+            }else {
+                e.preventDefault();
+            }
+        });
+
         $('#producto').change(function (e) {
             // console.log($(this).val());
             idproducto=$(this).val()

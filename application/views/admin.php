@@ -267,10 +267,9 @@
                                 <div class="col-md-1">
                                     <div class="form-group">
                                         <label class="control-label" id="titulocant">Cantidad</label>
-                                        <input type="number" value="1" name="cantidad" id="cantidad" min="1" class="form-control">
+                                        <input type="number" value="1" name="cantidad" id="cantidad" min="0" class="form-control">
                                     </div>
                                 </div>
-
                                 <div class="col-md-1">
                                     <div class="form-group">
                                         <label class="control-label">Agregar</label>
@@ -358,6 +357,8 @@
     window.onload=function (e) {
         var idproducto;
         $('#producto').change(function (e) {
+            $('#t1').val('');
+            $('#t2').val('');
             // console.log($(this).val());
             idproducto=$(this).val()
             $.ajax({
@@ -369,6 +370,12 @@
                     // console.log(dat) ;
                     if (e=="null"){
                         dat={};
+                        dat.CodAut='Nose tiene stock de este productos';
+                        dat.Producto='Nose tiene stock de este productos';
+                        dat.TipPro='Nose tiene stock de este productos';
+                        dat.Descripcion='Nose tiene stock de este productos';
+                        dat.Peso='Nose tiene stock de este productos';
+                        dat.Cant='Nose tiene stock de este productos';
                     }else{
                         dat = JSON.parse(e);
                     }
@@ -387,7 +394,6 @@
                     // console.log( dat.codUnid);
                     $('#pre'+(cat+1)).show();
                     $( "#precio"+(cat+1)).prop( "checked", true );
-
                     $('#codigo').val(dat.CodAut);
                     $('#nombre').val(dat.Producto);
                     $('#generico').val('');
@@ -419,9 +425,7 @@
                         $('#labelt2').html('');
                         $('#t1').attr('disabled','true');
                         $('#t2').attr('disabled','true');
-
                     }
-
                     if (cat==0){
                         $('#precioc').val(parseFloat(dat.Precio).toFixed(2));
                     }else if(cat==1){
@@ -493,13 +497,37 @@
                 alert('nose puede escoger un precio 0');
                 return false;
             }else{
-                var cantidad= parseInt( $('#cantidad').val());
-                var subtotal=cantidad*parseFloat(precio);
-                var nombre=$('#nombre').val();
-                var extra=$('#extra').val();
                 var t1=$('#t1').val();
                 var t2=$('#t2').val();
-                // console.log(cantidad);
+
+                if (t1==''){
+                    if (t2!=''){
+                        var cantidad= parseInt( $('#t2').val());
+                        var subtotal=cantidad*parseFloat(precio);
+                        cantidad= parseInt( $('#cantidad').val());
+                    }else{
+                        var cantidad= parseInt( $('#cantidad').val());
+                        var subtotal=cantidad*parseFloat(precio);
+                    }
+
+                }else {
+                    if (t2==''){
+                        var cantidad= parseInt( t1);
+                        var subtotal=cantidad*parseFloat(precio);
+                        cantidad= parseInt( $('#cantidad').val());
+                    }else {
+                        var cantidad1= parseInt( t1);
+                        var cantidad2= parseInt( t2);
+                        var cantidad=cantidad1+cantidad2;
+                        var subtotal=cantidad1*parseFloat(precio)+cantidad2*parseFloat(precio);
+                        cantidad= parseInt( $('#cantidad').val());
+                    }
+                }
+
+
+
+                var nombre=$('#nombre').val();
+                var extra=$('#extra').val();
                 $('#contenido').append("<tr>\n" +
                 "                                    <td>"+nombre+" <input hidden name='id"+idproducto+"' value='"+idproducto+"'></td>\n" +
                 "                                    <td>"+parseFloat(precio).toFixed(2)+"<input hidden name='precio"+idproducto+"' value='"+parseFloat(precio).toFixed(2)+"'></td>\n" +
