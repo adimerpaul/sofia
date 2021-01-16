@@ -24,7 +24,7 @@ date_default_timezone_set('America/La_Paz');
 |
 */
 //$config['base_url'] = 'https://d7714786958f.ngrok.io/sofia';
-$config['base_url'] = 'http://192.168.1.45/sofia';
+$config['base_url'] = 'https://b2986cbe526f.ngrok.io/sofia';
 
 /*
 |--------------------------------------------------------------------------

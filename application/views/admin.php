@@ -267,7 +267,7 @@
                                 <div class="col-md-1">
                                     <div class="form-group">
                                         <label class="control-label" id="titulocant">Cantidad</label>
-                                        <input type="number" value="1" name="cantidad" id="cantidad" min="0" class="form-control">
+                                        <input type="number" value="1" step="0.1" name="cantidad" id="cantidad"  class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-1">
