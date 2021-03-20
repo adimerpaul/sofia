@@ -278,8 +278,9 @@
                                 </div>
                             </div>
                         </form>
-                        <form id="agregarpedido">
+                        <form id="agregarpedido" action="<?=base_url()?>Admin/pedido" method="post">
                         <div class="table-responsive" style="padding-top: 0.5em">
+                            <input type="hidden" id="idcliente" name="idcliente">
                             <table class="table table-bordered mb-none">
                                 <thead>
                                 <tr class="bg bg-primary">
@@ -295,16 +296,18 @@
                                 </thead>
                                 <tbody id="contenido">
                                 </tbody>
-<!--                                <tfooter>-->
-<!--                                    <tr class="bg bg-warning">-->
-<!--                                        <th></th>-->
-<!--                                        <th></th>-->
-<!--                                        <th></th>-->
-<!--                                        <th>Total</th>-->
-<!--                                        <th id="total">0</th>-->
-<!--                                        <th></th>-->
-<!--                                    </tr>-->
-<!--                                </tfooter>-->
+                                <tfooter>
+                                    <tr class="bg bg-warning">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th>Total</th>
+                                        <th id="total">0</th>
+                                        <th></th>
+                                    </tr>
+                                </tfooter>
                             </table>
                         </div>
                     </div>
@@ -322,6 +325,7 @@
             function  seleccionar(id,cate){
                 idcliente=id;
                 cat=cate;
+                $('#idcliente').val(idcliente);
                 // console.log(cat);
             }
         </script>
@@ -348,7 +352,6 @@
                 </tr>";
             }
             ?>
-
             </tbody>
         </table>
     </div>
@@ -512,25 +515,25 @@
 
                 if (t1==''){
                     if (t2!=''){
-                        var cantidad= parseInt( $('#t2').val());
+                        var cantidad= parseFloat( $('#t2').val());
                         var subtotal=cantidad*parseFloat(precio);
                         cantidad= parseInt( $('#cantidad').val());
                     }else{
-                        var cantidad= parseInt( $('#cantidad').val());
+                        var cantidad= parseFloat( $('#cantidad').val());
                         var subtotal=cantidad*parseFloat(precio);
                     }
 
                 }else {
                     if (t2==''){
-                        var cantidad= parseInt( t1);
+                        var cantidad= parseFloat( t1);
                         var subtotal=cantidad*parseFloat(precio);
-                        cantidad= parseInt( $('#cantidad').val());
+                        cantidad= parseFloat( $('#cantidad').val());
                     }else {
-                        var cantidad1= parseInt( t1);
-                        var cantidad2= parseInt( t2);
+                        var cantidad1= parseFloat( t1);
+                        var cantidad2= parseFloat( t2);
                         var cantidad=cantidad1+cantidad2;
                         var subtotal=cantidad1*parseFloat(precio)+cantidad2*parseFloat(precio);
-                        cantidad= parseInt( $('#cantidad').val());
+                        cantidad= parseFloat( $('#cantidad').val());
                     }
                 }
 
@@ -539,13 +542,13 @@
                 var nombre=$('#nombre').val();
                 var extra=$('#extra').val();
                 $('#contenido').append("<tr>\n" +
-                "                                    <td>"+nombre+" <input hidden name='id"+idproducto+"' value='"+idproducto+"'></td>\n" +
-                "                                    <td>"+parseFloat(precio).toFixed(2)+"<input hidden name='precio"+idproducto+"' value='"+parseFloat(precio).toFixed(2)+"'></td>\n" +
-                "                                    <td>"+cantidad+"  <input hidden name='cantidad"+idproducto+"' value='"+cantidad+"'></td>\n" +
-                    "                                    <td>"+t1+"  <input hidden name='t1"+idproducto+"' value='"+t1+"'></td>\n" +
-                    "                                    <td>"+t2+"  <input hidden name='t2"+idproducto+"' value='"+t2+"'></td>\n" +
-                "                                    <td>"+extra+"  <input hidden name='extra"+idproducto+"' value='"+extra+"'></td>\n" +
-                "                                    <td><span>"+parseFloat(subtotal).toFixed(2)+" Bs.</span><input class='subtotal' name='s"+idproducto+"' value='"+parseFloat(subtotal).toFixed(2)+"' hidden > </td>" +
+                "                                    <td>"+nombre+" <input hidden name='id"+parseInt(idproducto)+"' value='"+parseInt(idproducto)+"'></td>\n" +
+                "                                    <td>"+parseFloat(precio).toFixed(2)+"<input hidden name='precio"+parseInt(idproducto)+"' value='"+parseFloat(precio).toFixed(2)+"'></td>\n" +
+                "                                    <td>"+cantidad+"  <input hidden name='cantidad"+parseInt(idproducto)+"' value='"+parseFloat(cantidad)+"'></td>\n" +
+                    "                                    <td>"+t1+"  <input hidden name='t1"+parseInt(idproducto)+"' value='"+t1+"'></td>\n" +
+                    "                                    <td>"+t2+"  <input hidden name='t2"+parseInt(idproducto)+"' value='"+t2+"'></td>\n" +
+                "                                    <td>"+extra+"  <input hidden name='extra"+parseInt(idproducto)+"' value='"+extra+"'></td>\n" +
+                "                                    <td><span>"+parseFloat(subtotal).toFixed(2)+" Bs.</span><input class='subtotal' name='s"+parseInt(idproducto)+"' value='"+parseFloat(subtotal).toFixed(2)+"' hidden > </td>" +
                                                     "<td><button class='btn btn-danger p-1 eliproducto'><i class='fa fa-trash-o'></i></button></td>\n" +
                 "                                </tr>");
                 calcular_total();
@@ -575,28 +578,29 @@
             var formData = $("#agregarpedido").serializeArray();
             if (formData.length==0){
                   alert('Tienes que tener productos!!');
+                  e.preventDefault();
             }else{
-                //console.log($("#agregarpedido").serialize());
-                formData.push({name:"idcliente",value:idcliente})
-                // console.log(formData);
-                // console.log(idcliente);
-                $.ajax({
-                    type: 'POST',
-                    url:'Admin/pedido',
-                    data:formData,
-                    success:function (e) {
-                        console.log(e);
-                        // return false;
-                        alert("Se guardo el pedido exitosamente!!")
-                        $('#contenido').html('');
-                        $('#modalBootstrap').modal('hide');
-                        $('#total').html('0')
-                        $('#extra').val('')
-                        // console.log(e);
-                    }
-                })
+                // console.log($("#agregarpedido").serialize());
+                // return false;
+                // formData.push({name:"idcliente",value:idcliente})
+
+                // $.ajax({
+                //     type: 'POST',
+                //     url:'Admin/pedido',
+                //     data:formData,
+                //     success:function (e) {
+                //         console.log(e);
+                //         // return false;
+                //         alert("Se guardo el pedido exitosamente!!")
+                //         $('#contenido').html('');
+                //         $('#modalBootstrap').modal('hide');
+                //         $('#total').html('0')
+                //         $('#extra').val('')
+                //         // console.log(e);
+                //     }
+                // })
             }
-            return false;
+            // return false;
         });
     }
 </script>
