@@ -408,11 +408,21 @@
                         $('#precioc').attr('disabled','true');
                     }
                     if (String(dat.Descripcion).trim()=='CARNE DE POLLO' || String(dat.Descripcion).trim()=='BANDEJAS' || String(dat.Descripcion).trim()=='EMBUTIDOS'){
-                        $('#titulocant').html('Caja');
-                        $('#labelt1').html('Unid. pollo');
-                        $('#labelt2').html('');
-                        $('#t1').removeAttr('disabled');
-                        $('#t2').attr('disabled','true');
+                        if(String(dat.Descripcion).trim()=='EMBUTIDOS'){
+                            $('#titulocant').html('Sachets');
+                            $('#labelt1').html('Cantidad');
+                            $('#labelt2').html('');
+                            $('#t1').removeAttr('disabled');
+                            $('#t2').attr('disabled','true');
+                        }else{
+                            $('#titulocant').html('Caja');
+                            $('#labelt1').html('Unid. pollo');
+                            $('#labelt2').html('');
+                            $('#t1').removeAttr('disabled');
+                            $('#t2').attr('disabled','true');
+                        }
+
+
                     }else if (String(dat.Descripcion).trim()=='CARNE DE CERDO' ||  String(dat.Descripcion).trim()=='CARNE DE RES GANCHO'){
                         $('#titulocant').html('Entero');
                         $('#labelt1').html('Desmiembro');
