@@ -407,7 +407,7 @@
                     }else{
                         $('#precioc').attr('disabled','true');
                     }
-                    if (String(dat.Descripcion).trim()=='CARNE DE POLLO'){
+                    if (String(dat.Descripcion).trim()=='CARNE DE POLLO' || String(dat.Descripcion).trim()=='BANDEJAS' || String(dat.Descripcion).trim()=='EMBUTIDOS'){
                         $('#titulocant').html('Caja');
                         $('#labelt1').html('Unid. pollo');
                         $('#labelt2').html('');
