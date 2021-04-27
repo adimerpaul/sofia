@@ -14,10 +14,10 @@ class Admin extends CI_Controller {
 
         $id= $_POST['id'];
             $query=$this->db->query("
-         SELECT t.CodAut,t.Producto,t.TipPro,t.codUnid,t.Peso,s.Cant,t.Precio,t.Precio_Costo,
+         SELECT t.CodAut,t.Producto,t.TipPro,t.codUnid,t.Peso,s.Saldo Cant,t.Precio,t.Precio_Costo,
          t.Precio3,t.Precio4,t.Precio5,t.Precio6,t.Precio7,t.Precio8,t.Precio9,Precio10,Precio11,t.Precio12,
          gp.Descripcion
-         FROM tbproductos t INNER JOIN tbstock s ON s.cod_prod=t.cod_prod
+         FROM tbproductos t INNER JOIN tbstockm s ON s.cod_prod=t.cod_prod
          INNER JOIN tbgrupos g ON t.cod_grup=g.Cod_grup
          INNER JOIN tbgrupopadre gp ON g.Cod_pdr=gp.cod_grup
          WHERE t.cod_prod='$id'");
