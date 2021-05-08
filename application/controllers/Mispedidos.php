@@ -44,20 +44,22 @@ WHERE p.NroPed='$id'");
         $query=$this->db->query("SELECT * FROM `tbproductos`");
 //        var_dump($_POST);
         foreach ($query->result() as $row){
-            if (isset($_POST["id".$row->cod_prod])){
-//                echo $row->cod_prod;
+            if (isset($_POST["id".trim($row->cod_prod)])){
+                echo trim($row->cod_prod)."-XXXXXX";
+
                 $this->db->query("INSERT INTO tbpedidos SET
 `NroPed`='$numpedido',
-`cod_prod`='".$row->cod_prod."',
+`cod_prod`='".trim($row->cod_prod)."',
 `CIfunc`='$CIfunc',
  `idCli`='".$_POST['idcliente']."',
  `impreso`='0',
  `pagado`='0',
- `Cant`='".$_POST['cantidad'.$row->cod_prod]."',
- `Tipo1`='".$_POST['t1'.$row->cod_prod]."',
- `Tipo2`='".$_POST['t2'.$row->cod_prod]."',
- `precio`='".$_POST['precio'.$row->cod_prod]."',
- `Canttxt`='".$_POST['extra'.$row->cod_prod]."',
+ `Cant`='".$_POST['cantidad'.trim($row->cod_prod)]."',
+ `Tipo1`='".$_POST['t1'.trim($row->cod_prod)]."',
+ `Tipo2`='".$_POST['t2'.trim($row->cod_prod)]."',
+ `precio`='".$_POST['precio'.trim($row->cod_prod)]."',
+  `subtotal`='".$_POST['subtotal'.trim($row->cod_prod)]."',
+ `Canttxt`='".$_POST['extra'.trim($row->cod_prod)]."',
  `fecha`='".date("Y-m-d H:i:s")."';");
             }
         }

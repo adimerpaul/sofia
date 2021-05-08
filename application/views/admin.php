@@ -548,7 +548,7 @@
                     "                                    <td>"+t1+"  <input hidden name='t1"+parseInt(idproducto)+"' value='"+t1+"'></td>\n" +
                     "                                    <td>"+t2+"  <input hidden name='t2"+parseInt(idproducto)+"' value='"+t2+"'></td>\n" +
                 "                                    <td>"+extra+"  <input hidden name='extra"+parseInt(idproducto)+"' value='"+extra+"'></td>\n" +
-                "                                    <td><span>"+parseFloat(subtotal).toFixed(2)+" Bs.</span><input class='subtotal' name='s"+parseInt(idproducto)+"' value='"+parseFloat(subtotal).toFixed(2)+"' hidden > </td>" +
+                "                                    <td><input hidden name='subtotal"+parseInt(idproducto)+"' value='"+parseFloat(subtotal).toFixed(2)+"'><span>"+parseFloat(subtotal).toFixed(2)+" Bs.</span></td>" +
                                                     "<td><button class='btn btn-danger p-1 eliproducto'><i class='fa fa-trash-o'></i></button></td>\n" +
                 "                                </tr>");
                 calcular_total();
