@@ -9,7 +9,7 @@
     <title>Sofia</title>
     <meta name="keywords" content="HTML5 Admin Template" />
     <meta name="description" content="Porto Admin - Responsive HTML5 Template">
-    <meta name="author" content="okler.net">
+    <meta name="author" content="adimer.com">
 
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -291,6 +291,12 @@
                                 <a href="<?=base_url()?>Mispedidos">
                                     <i class="fa fa-folder-o" aria-hidden="true"></i>
                                     <span>Mis pedidos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?=base_url()?>Pedidosenviados">
+                                    <i class="fa fa-columns" aria-hidden="true"></i>
+                                    <span>Pedidos Enviados</span>
                                 </a>
                             </li>
                             <li>
