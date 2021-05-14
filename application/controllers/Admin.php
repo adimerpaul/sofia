@@ -34,12 +34,13 @@ class Admin extends CI_Controller {
         $row=$query->row();
         $numpedido=$row->maximo+1;
         var_dump($_POST);
+        //exit;
         $CIfunc=$_SESSION['CodAut'];
         $query=$this->db->query("SELECT * FROM `tbproductos`");
         foreach ($query->result() as $row){
 //            echo "id".$row->cod_prod."";
             if (isset($_POST["id".trim($row->cod_prod)])){
-                echo $row->Producto;
+                //echo $row->Producto;
                 $this->db->query("INSERT INTO tbpedidos SET
                 `NroPed`='$numpedido',
                 `cod_prod`='".trim($row->cod_prod)."',
@@ -51,6 +52,7 @@ class Admin extends CI_Controller {
                  `Tipo1`='".$_POST['t1'.trim($row->cod_prod)]."',
                  `Tipo2`='".$_POST['t2'.trim($row->cod_prod)]."',
                  `precio`='".$_POST['precio'.trim($row->cod_prod)]."',
+                 `subtotal`='".$_POST['subtotal'.trim($row->cod_prod)]."',
                  `Canttxt`='".$_POST['extra'.trim($row->cod_prod)]."',
                  `fecha`='".date("Y-m-d H:i:s")."';");
             }
