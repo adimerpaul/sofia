@@ -58,6 +58,7 @@ class Admin extends CI_Controller {
             }
         }
 //        echo "aa";
-        header('Location: '.base_url().'Admin');
+        //header('Location: '.base_url().'Admin');
+        echo "<meta http-equiv='refresh' content='0; url=".base_url()."/Admin'>";
     }
 }

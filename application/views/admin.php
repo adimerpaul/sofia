@@ -281,7 +281,7 @@
                         <form id="agregarpedido" action="<?=base_url()?>Admin/pedido" method="post">
                         <div class="table-responsive" style="padding-top: 0.5em">
                             <input type="hidden" id="idcliente" name="idcliente">
-                            <table class="table table-bordered mb-none">
+                            <table class="" border="1" style="width: 100%">
                                 <thead>
                                 <tr class="bg bg-primary">
                                     <th>Producto</th>
@@ -501,10 +501,12 @@
             // cat=$(this).attr('data-cat');
             // console.log(idcliente);
         });
+        var array=[];
 
         $('#formulario').submit(function (e) {
             // var precio=$('input[name=precio]:checked', '#formulario').val();
             let precio=$('#precioc').val();
+            
             // console.log(precio);
             if( parseInt(precio)==0){
                 alert('nose puede escoger un precio 0');
@@ -537,7 +539,18 @@
                     }
                 }
 
+                //array.find
 
+                if (Number.isNaN(subtotal)) {
+                    alert('No tienes stock de ese productos!!');
+                    e.preventDefault();
+                    return false;
+                }
+
+                //array.push(parseInt(idproducto));
+                //console.log(array);
+                //some(array, idproducto)=>{;
+                
 
                 var nombre=$('#nombre').val();
                 var extra=$('#extra').val();
@@ -549,7 +562,7 @@
                     "                                    <td>"+t2+"  <input hidden name='t2"+parseInt(idproducto)+"' value='"+t2+"'></td>\n" +
                 "                                    <td>"+extra+"  <input hidden name='extra"+parseInt(idproducto)+"' value='"+extra+"'></td>\n" +
                 "                                    <td><input hidden class='subtotal' name='subtotal"+parseInt(idproducto)+"' value='"+parseFloat(subtotal).toFixed(2)+"'><span>"+parseFloat(subtotal).toFixed(2)+" Bs.</span></td>" +
-                                                    "<td><button class='btn btn-danger p-1 eliproducto'><i class='fa fa-trash-o'></i></button></td>\n" +
+                                                    "<td><button class='btn btn-danger btn-sm eliproducto'><i class='fa fa-trash-o'></i></button></td>\n" +
                 "                                </tr>");
                 calcular_total();
                 $('#extra').val('')
@@ -576,6 +589,8 @@
         });
         $('#agregarpedido').submit(function (e) {
             var formData = $("#agregarpedido").serializeArray();
+            //console.log();
+            
             if (formData.length==0){
                   alert('Tienes que tener productos!!');
                   e.preventDefault();
