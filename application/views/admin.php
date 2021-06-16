@@ -547,7 +547,9 @@
                     return false;
                 }
 
-                //array.push(parseInt(idproducto));
+                array.push(parseInt(idproducto));
+                console.log(array);
+                console.log(array.some(item => item === idproducto));
                 //console.log(array);
                 //some(array, idproducto)=>{;
                 
