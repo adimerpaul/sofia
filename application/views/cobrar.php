@@ -45,8 +45,6 @@
         <h2 class="panel-title">Cuentas por cobrar</h2>
     </header>
     <div class="panel-body">
-
-
         <div class="modal fade" id="modalBootstrap" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content ">
@@ -88,19 +86,31 @@
 
                         </form>
                         <form class="form-horizontal form-bordered" method="post" action="<?=base_url()?>Cobrar/insertcobro">
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label for="">Monto recivido</label>
+                                        <input type="text" id="cicliente" hidden name="ci">
+                                        <input type="number" placeholder="Monto recibido" id="montorecibido" class="form-control" name="monto">
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="">Monto faltante</label>
+                                        <input type="number" disabled placeholder="Monto recibido" id="montofaltante" class="form-control">
+                                    </div>
+                                </div>
+<!--                                <label > <span id="totalcuentas">0</span> Bs</label>-->
+<!--                                <input type="text" class="form-control" name="monto" id="montopagado"  placeholder="Monto recibido">-->
+<!--                                <input type="text" id="cicliente" hidden name="ci">-->
+<!--                                <label class="bg bg-primary ">TOTAL <span id="total"></span></label>-->
+                                <!--                                    <input type="text" name="total" id="total" class="form-control"  disabled>-->
+                            </div>
                             <div class="form-group col-xs-12" id="cuentas">
 <!--                                <div class="checkbox-custom checkbox-default">-->
 <!--                                    <input type="checkbox" checked="" id="checkboxExample1">-->
 <!--                                    <label for="checkboxExample1">Checkbox Default</label>-->
 <!--                                </div>-->
                             </div>
-                            <div class="col-xs-12">
-                                <label > <span id="totalcuentas">0</span> Bs</label>
-                                <input type="text" class="form-control" name="monto" id="montopagado"  placeholder="Monto recibido">
-                                <input type="text" id="cicliente" hidden name="ci">
-                                <label class="bg bg-primary ">TOTAL <span id="total"></span></label>
-                                <!--                                    <input type="text" name="total" id="total" class="form-control"  disabled>-->
-                            </div>
+
                             <div class="modal-footer">
                                 <button type="submit" id="btncobro" disabled class="btn btn-warning" > <i class="fa fa-check-circle"></i> Guardar</button>
                                 <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fa fa-trash-o"></i> Close</button>
@@ -136,9 +146,9 @@
                             $('#cuentas').html('');
                             datos.forEach((res)=>{
                                 $('#cuentas').append('' +
-                                    '              <div class="checkbox-custom checkbox-primary">\n' +
-                                    '                  <input type="checkbox" name="id'+res.comanda+'" class="calcularacuenta" value="'+parseFloat(res.Importe-res.Acuenta).toFixed(2)+'" >\n' +
-                                    '                  <label for="checkboxExample3"><div class="label label-default">Comanda'+res.comanda+'</div> <label class="label label-default"> Saldo'+parseFloat(res.Importe-res.Acuenta).toFixed(2)+'</label></label>' +
+                                    '              <div>' +
+                                    // '                  <input type="checkbox" name="id'+res.comanda+'" class="calcularacuenta" value="'+parseFloat(res.Importe-res.Acuenta).toFixed(2)+'" >\n' +
+                                    '                  <label for="checkboxExample3"><div class="label label-default">Comanda'+res.comanda+'</div> <label class="label label-default"> Saldo'+parseFloat(res.Importe-res.Acuenta).toFixed(2)+'</label><input type="text" class="price" placeholder="00.00" name="id'+res.CodAuto+'"></label>' +
                                     '              </div>' +
                                     '                 ')
                                 // console.log(res);
@@ -202,7 +212,6 @@
                 $('#cicliente').val(id);
                 // console.log(idcliente);
                 datosfun();
-
             }
         </script>
         <table class="table table-bordered table-striped mb-none" id="datatable-default">
@@ -234,6 +243,29 @@
 </section>
 <script>
     window.onload=function (e) {
+        $('#cuentas').on('keyup','.price',function (){
+            let sum=0;
+                $('.price').each(function() {
+                    if ($(this).val()!='' && $(this).val()!=undefined && $(this).val()!=null)
+                    sum += parseFloat($(this).val());
+                });
+                // console.log(sum.toFixed(2));
+                $('#montofaltante').val(sum.toFixed(2))
+            if (parseFloat($('#montofaltante').val())==parseFloat($('#montorecibido').val())){
+                $('#btncobro').prop("disabled", false);
+            }else{
+                $('#btncobro').prop("disabled", true);
+            }
+        })
+        // $('.price').keydown(function () {
+        //     var sum = 0;
+        //     $('.price').each(function() {
+        //         sum += Number($(this).val());
+        //     });
+        //     console.log(sum);
+        //     // here, you have your sum
+        // });
+
         $('#montopagado').keyup(function (e) {
             let total=parseFloat($('#total').html());
             let monto=parseFloat($(this).val());

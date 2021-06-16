@@ -89,6 +89,8 @@ ORDER BY c.comanda");
         echo 1;
     }
     public function insertcobro(){
+//        var_dump($_POST);
+//        exit();
         $ci=$_POST['ci'];
         $monto=$_POST['monto'];
         $CIfunc=$_SESSION['CodAut'];
@@ -100,39 +102,38 @@ ORDER BY c.comanda");
 
         $query=$this->db->query("
 SELECT * FROM tbctascobrar c
-INNER JOIN tbclientes cli ON cli.Id=c.CINIT
-WHERE c.CINIT='$ci' AND c.Nrocierre=0
-ORDER BY c.comanda");
+WHERE c.CINIT='$ci' AND c.Nrocierre=0");
         foreach ($query->result() as $row){
-            if (isset($_POST['id'.$row->comanda])){
-                $saldo=$row->Importe-$row->Acuenta;
-                if($monto>0 && $saldo!=0){
-//                    if ($monto>$saldo){
-                        $this->db->query("UPDATE tbctascobrar SET Acuenta=Importe WHERE codAuto='$row->CodAuto'");
-                        $monto=$monto-$saldo;
-//                    }else{
-//                        $this->db->query("UPDATE tbctascobrar SET Acuenta=Acuenta+$monto WHERE codAuto='$row->CodAuto'");
-//                        $monto=0;
-//                    }
-                }
+            if (isset($_POST['id'.$row->CodAuto]) && $_POST['id'.$row->CodAuto]!='' && $_POST['id'.$row->CodAuto]!=null){
+                $monto=$_POST['id'.$row->CodAuto];
+//                echo $monto."---$row->CodAuto<br>";
+//                if($monto>0 && $saldo!=0){
+////                    if ($monto>$saldo){
+//                        $this->db->query("UPDATE tbctascobrar SET Acuenta=Importe WHERE codAuto='$row->CodAuto'");
+//                        $monto=$monto-$saldo;
+////                    }else{
+                        $this->db->query("UPDATE tbctascobrar SET Acuenta=$monto WHERE codAuto='$row->CodAuto'");
+////                        $monto=0;
+////                    }
+//                }
             }
         }
-        $query=$this->db->query("
-SELECT * FROM tbctascobrar c
-INNER JOIN tbclientes cli ON cli.Id=c.CINIT
-WHERE c.CINIT='$ci' AND c.Nrocierre=0
-ORDER BY c.comanda");
-        if ($monto>0)
-            foreach ($query->result() as $row){
-//                if (isset($_POST['id'.$row->comanda])){
-                    $saldo=$row->Importe-$row->Acuenta;
-//                    echo $row->Importe."  ".$row->Acuenta."<br>";
-                    if($monto>0 &&  intval( $saldo)!=0){
-                        $this->db->query("UPDATE tbctascobrar SET Acuenta=Acuenta+$monto WHERE codAuto='$row->CodAuto'");
-                        $monto=0;
-//                    }
-                }
-            }
+//        $query=$this->db->query("
+//SELECT * FROM tbctascobrar c
+//INNER JOIN tbclientes cli ON cli.Id=c.CINIT
+//WHERE c.CINIT='$ci' AND c.Nrocierre=0
+//ORDER BY c.comanda");
+//        if ($monto>0)
+//            foreach ($query->result() as $row){
+////                if (isset($_POST['id'.$row->comanda])){
+//                    $saldo=$row->Importe-$row->Acuenta;
+////                    echo $row->Importe."  ".$row->Acuenta."<br>";
+//                    if($monto>0 &&  intval( $saldo)!=0){
+//                        $this->db->query("UPDATE tbctascobrar SET Acuenta=Acuenta+$monto WHERE codAuto='$row->CodAuto'");
+//                        $monto=0;
+////                    }
+//                }
+//            }
         header('Location: '.base_url().'Cobrar');
     }
 }
