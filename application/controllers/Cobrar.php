@@ -94,11 +94,11 @@ ORDER BY c.comanda");
         $ci=$_POST['ci'];
         $monto=$_POST['monto'];
         $CIfunc=$_SESSION['CodAut'];
-        $this->db->query("INSERT INTO tbctascow SET
-        `idCli`='$ci',
-        `pago`='".$monto."',
-        `CIfunc`='$CIfunc',
-         `fecha`='".date("Y-m-d H:i:s")."';");
+//        $this->db->query("INSERT INTO tbctascow SET
+//        `idCli`='$ci',
+//        `pago`='".$monto."',
+//        `CIfunc`='$CIfunc',
+//         `fecha`='".date("Y-m-d H:i:s")."';");
 
         $query=$this->db->query("
 SELECT * FROM tbctascobrar c
@@ -106,13 +106,21 @@ WHERE c.CINIT='$ci' AND c.Nrocierre=0");
         foreach ($query->result() as $row){
             if (isset($_POST['id'.$row->CodAuto]) && $_POST['id'.$row->CodAuto]!='' && $_POST['id'.$row->CodAuto]!=null){
                 $monto=$_POST['id'.$row->CodAuto];
+                $comanda=$row->CodAuto;
 //                echo $monto."---$row->CodAuto<br>";
 //                if($monto>0 && $saldo!=0){
 ////                    if ($monto>$saldo){
 //                        $this->db->query("UPDATE tbctascobrar SET Acuenta=Importe WHERE codAuto='$row->CodAuto'");
 //                        $monto=$monto-$saldo;
 ////                    }else{
-                        $this->db->query("UPDATE tbctascobrar SET Acuenta=$monto WHERE codAuto='$row->CodAuto'");
+                        $this->db->query("INSERT INTO tbctascow 
+                        SET 
+                        pago='$monto',
+                        idCli='$ci',
+                        CIfunc='$CIfunc',
+                         fecha='".date("Y-m-d H:i:s")."',
+                         comanda='$comanda'
+                        ");
 ////                        $monto=0;
 ////                    }
 //                }
