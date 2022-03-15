@@ -369,8 +369,9 @@
                 type:'POST',
                 data:'id='+idproducto,
                 success:function (e) {
-                    // dat = JSON.parse(e);
-                    // console.log(dat) ;
+                    //dat = JSON.parse(e);
+                    //console.log(e) ;
+                    //return false
                     if (e=="null"){
                         dat={};
                         dat.CodAut='Nose tiene stock de este productos';
